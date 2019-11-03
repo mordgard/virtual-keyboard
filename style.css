@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.keyboard-wrapper {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.button {
+  margin-left: 2px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 3px;
+  width: auto;
+  height: 2rem;
+  outline: none;
+}
+
+.button__primary {
+}
+
+.button__secondary {
+  background-color: #4d4d4d;
+  color: #fff;
+}
+
+.button__active {
+}
