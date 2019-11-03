@@ -172,6 +172,10 @@ const virtualKeyboard = {
       buttonsRu = buttonsRu.map(elem => elem.toUpperCase());
     }
 
+    addEventListener("keydown", e => {
+      console.log(e);
+    });
+
     const fragment = document.createDocumentFragment();
 
     this.locale.eng
@@ -232,6 +236,26 @@ const virtualKeyboard = {
 
             case "SHIFT":
               button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.shift.isPressed = true;
+                this.properties.isUppercase = !this.properties.isUppercase;
+
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.shift.isPressed = false;
+                this.properties.isUppercase = !this.properties.isUppercase;
+
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
               break;
 
             case "CTRL":
@@ -318,13 +342,36 @@ const virtualKeyboard = {
 
             case "SHIFT":
               button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.shift.isPressed = true;
+                this.properties.isUppercase = !this.properties.isUppercase;
+
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.shift.isPressed = false;
+                this.properties.isUppercase = !this.properties.isUppercase;
+
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
               break;
+
             case "CTRL":
               button.classList.add("button__secondary");
               break;
+
             case "ALT":
               button.classList.add("button__secondary");
               break;
+
             case "SPACE":
               button.classList.add("button__secondary");
               button.addEventListener("click", e => {
