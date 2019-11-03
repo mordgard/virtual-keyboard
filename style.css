@@ -10,6 +10,9 @@
   height: 100px;
 }
 
+.textarea:focus {
+}
+
 .keyboard-wrapper {
   width: 590px;
   margin-top: 14px;

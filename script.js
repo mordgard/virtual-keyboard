@@ -45,6 +45,8 @@ const virtualKeyboard = {
     this.htmlElements.container.append(this.htmlElements.keyboardWrapper);
     this.htmlElements.keyboardWrapper.append(this._createButtons());
     document.body.append(this.htmlElements.container);
+
+    this.htmlElements.textArea.element.innerText = this.htmlElements.textArea.element.value;
   },
 
   _createButtons() {
@@ -178,9 +180,18 @@ const virtualKeyboard = {
           switch (elem) {
             case "BACKSPACE":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
+                  0,
+                  this.htmlElements.textArea.element.value.length - 1
+                );
+              });
               break;
             case "TAB":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "    ";
+              });
               break;
             case "CAPS":
               button.classList.add("button__secondary");
@@ -194,6 +205,9 @@ const virtualKeyboard = {
               break;
             case "ENTER":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "\n";
+              });
               break;
             case "SHIFT":
               button.classList.add("button__secondary");
@@ -206,7 +220,14 @@ const virtualKeyboard = {
               break;
             case "SPACE":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += " ";
+              });
               break;
+            default:
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += elem;
+              });
           }
 
           fragment.append(button);
@@ -227,9 +248,18 @@ const virtualKeyboard = {
           switch (elem) {
             case "BACKSPACE":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
+                  0,
+                  this.htmlElements.textArea.element.value.length - 1
+                );
+              });
               break;
             case "TAB":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "    ";
+              });
               break;
             case "CAPS":
               button.classList.add("button__secondary");
@@ -243,6 +273,9 @@ const virtualKeyboard = {
               break;
             case "ENTER":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "\n";
+              });
               break;
             case "SHIFT":
               button.classList.add("button__secondary");
@@ -255,7 +288,14 @@ const virtualKeyboard = {
               break;
             case "SPACE":
               button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += " ";
+              });
               break;
+            default:
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += elem;
+              });
           }
 
           fragment.append(button);
