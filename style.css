@@ -11,14 +11,8 @@
 }
 
 .keyboard-wrapper {
-  width: 100%;
+  width: 590px;
   margin-top: 14px;
-}
-
-.keyboard-row {
-  display: flex;
-  justify-content: center;
-  margin-top: 2px;
 }
 
 .button {
@@ -26,7 +20,7 @@
   font-size: 1.2em;
   cursor: pointer;
   border-radius: 3px;
-  width: auto;
+  min-width: 2rem;
   height: 2rem;
   outline: none;
 }
@@ -40,4 +34,5 @@
 }
 
 .button__active {
+  border-color: tomato;
 }
