@@ -26,8 +26,6 @@ const virtualKeyboard = {
   },
 
   init() {
-    console.log("Keyboard initialized!");
-
     this.htmlElements.container = document.createElement("div");
     this.htmlElements.textArea.element = document.createElement("textarea");
     this.htmlElements.keyboardWrapper = document.createElement("div");
@@ -42,6 +40,16 @@ const virtualKeyboard = {
     document.body.append(this.htmlElements.container);
 
     this.htmlElements.textArea.element.innerText = this.htmlElements.textArea.element.value;
+
+    addEventListener("keydown", e => {
+      this.properties.pressedPhysicalButtons.push(e.key);
+      this._switchLang();
+    });
+
+    addEventListener("keyup", e => {
+      const element = this.properties.pressedPhysicalButtons.find(el => el === e.key);
+      this.properties.pressedPhysicalButtons = this.properties.pressedPhysicalButtons.filter(el => el !== element);
+    });
   },
 
   _createButtons() {
@@ -164,12 +172,6 @@ const virtualKeyboard = {
       buttonsEng = buttonsEng.map(elem => elem.toUpperCase());
       buttonsRu = buttonsRu.map(elem => elem.toUpperCase());
     }
-
-
-    addEventListener("keydown", e => {
-      console.log(e);
-      this.properties.pressedPhysicalButtons.push(e.key);
-    });
 
     const fragment = document.createDocumentFragment();
 
@@ -411,14 +413,19 @@ const virtualKeyboard = {
         }
       });
 
-    // console.log(this.properties.pressedPhysicalButtons);
     return fragment;
   },
 
   _switchLang() {
-    if (this.specialButtons.ctrl.isPressed && this.specialButtons.alt.isPressed) {
+    if (this.properties.pressedPhysicalButtons.includes("Control") && this.properties.pressedPhysicalButtons.includes("Alt")) {
       this.locale.eng = !this.locale.eng;
       this._reinitialize();
+    }
+  },
+
+  _listener(elem) {
+    if (this.properties.pressedPhysicalButtons.includes(elem)) {
+      button.classList.add("button__pressed");
     }
   },
 
