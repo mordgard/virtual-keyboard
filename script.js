@@ -1,3 +1,4 @@
+// for PR =)
 const virtualKeyboard = {
   htmlElements: {
     container: null,
@@ -5,7 +6,7 @@ const virtualKeyboard = {
       element: null,
       value: ""
     },
-    keyboardWrapper: null,
+    keyboardWrapper: null
   },
 
   properties: {
@@ -47,8 +48,12 @@ const virtualKeyboard = {
     });
 
     addEventListener("keyup", e => {
-      const element = this.properties.pressedPhysicalButtons.find(el => el === e.key);
-      this.properties.pressedPhysicalButtons = this.properties.pressedPhysicalButtons.filter(el => el !== element);
+      const element = this.properties.pressedPhysicalButtons.find(
+        el => el === e.key
+      );
+      this.properties.pressedPhysicalButtons = this.properties.pressedPhysicalButtons.filter(
+        el => el !== element
+      );
     });
   },
 
@@ -177,247 +182,250 @@ const virtualKeyboard = {
 
     this.locale.eng
       ? buttonsEng.forEach(elem => {
-        const lineBreak =
-          ["BACKSPACE", "]", "ENTER", "?"].indexOf(elem) !== -1;
+          const lineBreak =
+            ["BACKSPACE", "]", "ENTER", "?"].indexOf(elem) !== -1;
 
-        const button = document.createElement("button");
-        button.setAttribute("type", "button");
-        button.classList.add("button");
-        button.innerText = elem;
+          const button = document.createElement("button");
+          button.setAttribute("type", "button");
+          button.classList.add("button");
+          button.innerText = elem;
 
-        switch (elem) {
-          case "BACKSPACE":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
-                0,
-                this.htmlElements.textArea.element.value.length - 1
-              );
-            });
-            break;
+          switch (elem) {
+            case "BACKSPACE":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
+                  0,
+                  this.htmlElements.textArea.element.value.length - 1
+                );
+              });
+              break;
 
-          case "TAB":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += "    ";
-            });
-            break;
+            case "TAB":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "    ";
+              });
+              break;
 
-          case "CAPS":
-            button.classList.add("button__secondary");
-
-            if (this.specialButtons.capsLock.isPressed) {
-              button.classList.add("button__active");
-            }
-
-            button.addEventListener("click", () => {
-              this.specialButtons.capsLock.isPressed = !this.specialButtons
-                .capsLock.isPressed;
-              this.properties.isUppercase = !this.properties.isUppercase;
+            case "CAPS":
+              button.classList.add("button__secondary");
 
               if (this.specialButtons.capsLock.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
+                button.classList.add("button__active");
               }
-            });
 
-            break;
+              button.addEventListener("click", () => {
+                this.specialButtons.capsLock.isPressed = !this.specialButtons
+                  .capsLock.isPressed;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "ENTER":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += "\n";
-            });
-            break;
+                if (this.specialButtons.capsLock.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
 
-          case "SHIFT":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.shift.isPressed = true;
-              this.properties.isUppercase = !this.properties.isUppercase;
+              break;
 
-              if (this.specialButtons.shift.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
-              }
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.shift.isPressed = false;
-              this.properties.isUppercase = !this.properties.isUppercase;
+            case "ENTER":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "\n";
+              });
+              break;
 
-              if (this.specialButtons.shift.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
-              }
-            });
-            break;
+            case "SHIFT":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.shift.isPressed = true;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "CTRL":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.ctrl.isPressed = true;
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.ctrl.isPressed = false;
-            });
-            break;
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.shift.isPressed = false;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "ALT":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.alt.isPressed = true;
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.alt.isPressed = false;
-            });
-            break;
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              break;
 
-          case "SPACE":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += " ";
-            });
-            break;
+            case "CTRL":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.ctrl.isPressed = true;
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.ctrl.isPressed = false;
+              });
+              break;
 
-          default:
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += elem;
-            });
-        }
+            case "ALT":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.alt.isPressed = true;
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.alt.isPressed = false;
+              });
+              break;
 
-        fragment.append(button);
+            case "SPACE":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += " ";
+              });
+              break;
 
-        if (lineBreak) {
-          fragment.append(document.createElement("br"));
-        }
-      })
+            default:
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += elem;
+              });
+          }
+
+          fragment.append(button);
+
+          if (lineBreak) {
+            fragment.append(document.createElement("br"));
+          }
+        })
       : buttonsRu.forEach(elem => {
-        const lineBreak =
-          ["BACKSPACE", "\\", "ENTER", "/"].indexOf(elem) !== -1;
+          const lineBreak =
+            ["BACKSPACE", "\\", "ENTER", "/"].indexOf(elem) !== -1;
 
-        const button = document.createElement("button");
-        button.setAttribute("type", "button");
-        button.classList.add("button");
-        button.innerText = elem;
+          const button = document.createElement("button");
+          button.setAttribute("type", "button");
+          button.classList.add("button");
+          button.innerText = elem;
 
-        switch (elem) {
-          case "BACKSPACE":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
-                0,
-                this.htmlElements.textArea.element.value.length - 1
-              );
-            });
-            break;
+          switch (elem) {
+            case "BACKSPACE":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value = this.htmlElements.textArea.element.value.substring(
+                  0,
+                  this.htmlElements.textArea.element.value.length - 1
+                );
+              });
+              break;
 
-          case "TAB":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += "    ";
-            });
-            break;
+            case "TAB":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "    ";
+              });
+              break;
 
-          case "CAPS":
-            button.classList.add("button__secondary");
-
-            if (this.specialButtons.capsLock.isPressed) {
-              button.classList.add("button__active");
-            }
-
-            button.addEventListener("click", () => {
-              this.specialButtons.capsLock.isPressed = !this.specialButtons
-                .capsLock.isPressed;
-              this.properties.isUppercase = !this.properties.isUppercase;
+            case "CAPS":
+              button.classList.add("button__secondary");
 
               if (this.specialButtons.capsLock.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
+                button.classList.add("button__active");
               }
-            });
 
-            break;
+              button.addEventListener("click", () => {
+                this.specialButtons.capsLock.isPressed = !this.specialButtons
+                  .capsLock.isPressed;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "ENTER":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += "\n";
-            });
-            break;
+                if (this.specialButtons.capsLock.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
 
-          case "SHIFT":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.shift.isPressed = true;
-              this.properties.isUppercase = !this.properties.isUppercase;
+              break;
 
-              if (this.specialButtons.shift.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
-              }
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.shift.isPressed = false;
-              this.properties.isUppercase = !this.properties.isUppercase;
+            case "ENTER":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += "\n";
+              });
+              break;
 
-              if (this.specialButtons.shift.isPressed) {
-                this._reinitialize();
-              } else {
-                this._reinitialize();
-              }
-            });
-            break;
+            case "SHIFT":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.shift.isPressed = true;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "CTRL":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.ctrl.isPressed = true;
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.ctrl.isPressed = false;
-            });
-            break;
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.shift.isPressed = false;
+                this.properties.isUppercase = !this.properties.isUppercase;
 
-          case "ALT":
-            button.classList.add("button__secondary");
-            button.addEventListener("mousedown", () => {
-              this.specialButtons.alt.isPressed = true;
-            });
-            button.addEventListener("mouseup", () => {
-              this.specialButtons.alt.isPressed = false;
-            });
-            break;
+                if (this.specialButtons.shift.isPressed) {
+                  this._reinitialize();
+                } else {
+                  this._reinitialize();
+                }
+              });
+              break;
 
-          case "SPACE":
-            button.classList.add("button__secondary");
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += " ";
-            });
-            break;
+            case "CTRL":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.ctrl.isPressed = true;
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.ctrl.isPressed = false;
+              });
+              break;
 
-          default:
-            button.addEventListener("click", e => {
-              this.htmlElements.textArea.element.value += elem;
-            });
-        }
+            case "ALT":
+              button.classList.add("button__secondary");
+              button.addEventListener("mousedown", () => {
+                this.specialButtons.alt.isPressed = true;
+              });
+              button.addEventListener("mouseup", () => {
+                this.specialButtons.alt.isPressed = false;
+              });
+              break;
 
-        fragment.append(button);
+            case "SPACE":
+              button.classList.add("button__secondary");
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += " ";
+              });
+              break;
 
-        if (lineBreak) {
-          fragment.append(document.createElement("br"));
-        }
-      });
+            default:
+              button.addEventListener("click", e => {
+                this.htmlElements.textArea.element.value += elem;
+              });
+          }
+
+          fragment.append(button);
+
+          if (lineBreak) {
+            fragment.append(document.createElement("br"));
+          }
+        });
 
     return fragment;
   },
 
   _switchLang() {
-    if (this.properties.pressedPhysicalButtons.includes("Control") && this.properties.pressedPhysicalButtons.includes("Alt")) {
+    if (
+      this.properties.pressedPhysicalButtons.includes("Control") &&
+      this.properties.pressedPhysicalButtons.includes("Alt")
+    ) {
       this.locale.eng = !this.locale.eng;
       this._reinitialize();
     }
@@ -438,6 +446,6 @@ const virtualKeyboard = {
   }
 };
 
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function() {
   virtualKeyboard.init();
 });
